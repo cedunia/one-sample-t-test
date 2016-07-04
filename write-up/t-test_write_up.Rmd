@@ -1,0 +1,52 @@
+---
+title: "One sample t-test"
+author: "Cédric HASSEN-KHODJA"
+date: "1 juillet 2016"
+output: pdf_document
+---
+
+```{r, echo=FALSE}
+load("t-test_environment.RData")
+```
+
+# Introduction
+According to the World Health Organization (WHO), hypertension is the leading cause of death in the world. 51% and 45% of deaths associated with stroke and ischemic heart disease (reduced blood flow to the heart), respectively, can be attributed to hypertension.   
+Blood pressure is the power or pressure exerted by the blood on the walls of the arteries. It is expressed in two values, the systolic pressure (SBP) and the diastolic pressure (DBP). The first corresponds to the pressure when the heart contracts (systole), pumping blood in the arteries towards the lungs. The second designates the pressure exerted by the flow of blood when the ventricles expand (diastole) in order to collect blood channeled to the atrial chambers by the pulmonary veins and vena cava. Blood pressure is frequently measured in millimeters of mercury (mmHg).    
+
+# Methods
+A man has taken this systolic blood pressure for 24 hour. The average result of the french population for men is equal to 127.2 mmHg. You want to check if the sample mean is significantly similar (when the significance level is 95%) to the average population, assuming that the variance of the population is not known.       
+Data for the average population is provided by [withings](http://obs.withings.com/fr/bp)  
+    
+    
+`r data_clean$systolic`
+
+# Assumptions
+
+## Assumption 1
+
+Your dependent variable should be continous.
+
+```{r}
+is.numeric(data_clean$systolic)
+```
+
+## Assumption 2
+
+Your data is independent. Measures taken on the same subject every hour for 24 hour.
+
+## Assumption 3
+
+There should be no significant outliers.
+The high `r data_systolic_sum$systolic_high` and the low `r data_systolic_sum$systolic_low` threshold for identify outliers are found in systolic measures. No outliers are present in the data 
+
+## Assumption 4
+
+Your dependent variable should be approximately normally distributed.
+
+```{r, echo=FALSE, fig.align='center'}
+systolic_histogram.plot
+```
+
+```{r, echo=FALSE, fig.align='center'}
+systolic.qqplot
+```
