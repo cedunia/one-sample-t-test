@@ -36,8 +36,8 @@ Your data is independent. Measures taken on the same subject every hour for 24 h
 
 ## Assumption 3
 
-There should be no significant outliers.
-The high `r data_systolic_sum$systolic_high` and the low `r data_systolic_sum$systolic_low` threshold for identify outliers are found in systolic measures. No outliers are present in the data 
+There should be no significant outliers.   
+No values are higher than `r data_systolic_sum$systolic_high` or less than `r data_systolic_sum$systolic_low` thresholds. No outliers are present in the data.
 
 ## Assumption 4
 
@@ -50,3 +50,23 @@ systolic_histogram.plot
 ```{r, echo=FALSE, fig.align='center'}
 systolic.qqplot
 ```
+
+# Results
+
+The Student's t-test for a single sample have a pre-set function in R we can apply immediately.    
+**t.test (a, mu)**
+```{r, echo=FALSE}
+data_stats.t_computed
+```
+The function **t.test** on one sample provides in output the value of t calculated; also gives us degrees of freedom, the confidence interval and the average (mean of x).
+
+# Conclusion
+
+In order to take your statistic decision, you can proceed in two ways. We can compare the value of t with the value of the tabulated student t with 9 degrees of freedom. If we do not have tables, we can calculate the value t-tabulated in the following way: **qt(0.975,44)**
+
+```{r, echo=FALSE}
+data_stats.t_tabulated
+```
+
+The function **qt(p,df)** returns the value of t-tabulated considering the significance level (we chose a significance level equal to 95%, which means that each tail is the 2.5% which corresponds to the value of p = 1 - 0.025), and the degrees of freedom. By comparing the value of t-tabulated with t-computed, t-computed appears higher, which means that we don't accept the null hypothesis of equality of the averages: **our sample mean is significantly different to the mean of the population.**  
+Alternatively we could consider the p-value. With a significance level of 95%, remember this rule: If p-value is greater than 0.05 then we accept the null hypothesis H0; if p-value is less than 0.05 then we reject the null hypothesis H0 in favor of the alternative hypothesis H1. **Here 1.702066e-08 is less than 0.05 then our systolic blood  pressure mean is significantly different to the mean of the systolic blood pressure population.**
